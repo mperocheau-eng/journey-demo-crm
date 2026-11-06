@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Journey Demo CRM</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Journey Demo CRM</h1>
+      <p>Fictional callers · Journey profile lookup · SMS authentication</p>
+    </div>
+    <div id="connectionStatus" class="pill">Loading…</div>
+  </header>
+
+  <main>
+    <div class="notice">
+      <strong>Demo only:</strong> use synthetic callers and approved demo benefit data.
+      Authentication callbacks are correlated but require operator review here.
+    </div>
+
+    <section class="panel">
+      <h2>Create caller</h2>
+      <form id="createForm" class="form-grid">
+        <label>First name
+          <input name="firstName" required maxlength="80" placeholder="Demo Caller">
+        </label>
+        <label>Last name
+          <input name="lastName" maxlength="80" placeholder="Example">
+        </label>
+        <label>Journey unique ID
+          <input name="uniqueId" required maxlength="64" pattern="[A-Za-z0-9_-]+"
+                 placeholder="demo-customer-001">
+        </label>
+        <label>Phone number (E.164)
+          <input name="phoneNumber" required placeholder="+15555550123">
+        </label>
+        <div class="form-action">
+          <button class="primary" type="submit">Create caller</button>
+        </div>
+      </form>
+    </section>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="section-title">
+          <h2>Callers</h2>
+          <button class="secondary" id="refreshButton" type="button">Refresh</button>
+        </div>
+        <div id="customerList" class="customer-list"></div>
+      </section>
+
+      <section class="panel" id="detailPanel">
+        <h2>Caller details</h2>
+        <p class="muted">Select a caller to view or edit their demo state.</p>
+        <div id="details"></div>
+      </section>
+    </div>
+
+    <section class="panel">
+      <div class="section-title">
+        <div>
+          <h2>ESDC prompt demo data</h2>
+          <p class="muted">These values map to the prompt’s <code>demoData.esdc</code> variables.</p>
+        </div>
+        <button class="primary" id="saveDemoData" type="button">Save demo data</button>
+      </div>
+
+      <div class="form-grid">
+        <fieldset>
+          <legend>Standard plan</legend>
+          <label>Maximum weeks
+            <input id="stdWeeks" type="number" min="0" step="1">
+          </label>
+          <label>Rate (%)
+            <input id="stdRate" type="number" min="0" step="any">
+          </label>
+          <label>Weekly cap ($)
+            <input id="stdCap" type="number" min="0" step="any">
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Extended plan</legend>
+          <label>Maximum weeks
+            <input id="extWeeks" type="number" min="0" step="1">
+          </label>
+          <label>Rate (%)
+            <input id="extRate" type="number" min="0" step="any">
+          </label>
+          <label>Weekly amount ($)
+            <input id="extAmount" type="number" min="0" step="any">
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Other benefit information</legend>
+          <label>Paper Record of Employment required?
+            <select id="paperRequired">
+              <option value="">Not set</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </label>
+          <label>Processing time (days)
+            <input id="processingDays" type="number" min="0" step="1">
+          </label>
+          <label>Unpaid waiting week applies?
+            <select id="waitingWeek">
+              <option value="">Not set</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </label>
+        </fieldset>
+      </div>
+      <pre id="demoDataOutput">{}</pre>
+    </section>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
