@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: journey-demo-crm
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: APP_PASSWORD
+        sync: false
+      - key: CALLBACK_SECRET
+        sync: false
+      - key: JOURNEY_API_TOKEN
+        sync: false
+      - key: JOURNEY_PIPELINE_KEY
+        sync: false
+      - key: PUBLIC_URL
+        sync: false
+      - key: JOURNEY_LANGUAGE
+        value: en-US
+      - key: DATA_DIR
+        value: /var/data
